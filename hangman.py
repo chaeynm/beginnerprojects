@@ -22,10 +22,28 @@ def hangman():
         print('you\'ve used these letters: ',' '.join(used_letters))
 
         #what current word is (ie. W - R D)
+
+    #list comprehension example for myself bc i keep forgetting them
+
+    #loop ie
+
+    #   h_letters = []
+    #   for letter in 'human':
+    #   h_letters.append(letter)
+
+    #   print(h_letters)
+
+    #list comprehension ie
+
+    #   h_letters = [letter for letter in 'human']
+    #   print(h_letters)
+
         word_list = [letter if letter in used_letters else '-' for letter in word]
+
+            #expression if the variable is in the used letter list if else '-' ////
         print('Current word: ', ' '.join(word_list))
-        print('you have used these letters')
         user_letter = input('guess a letter: ').upper()
+
         if user_letter in alphabet - used_letters:
             used_letters.add(user_letter)
             if user_letter in word_letters:
