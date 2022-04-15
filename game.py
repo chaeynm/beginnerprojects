@@ -1,4 +1,7 @@
 #author credits to kylie ying
+import time
+from player import HumanPlayer,RandomComputerPlayer
+
 
 class TicTacToe:
     def __init__(self):
@@ -56,45 +59,50 @@ class TicTacToe:
     # these are the only moves possible to win a diagonal
         if square % 2 == 0:
             diagonal1 = [self.board[i] for i in [0, 4, 8]] # left to right diagonal
-                if all([spot == letter for spot in diagonal1]):
-                    return True
+            if all([spot == letter for spot in diagonal1]):
+                return True
             diagonal2 = [self.board[i] for i in [2, 4, 6]] # right to left diagonal
-                if all([spot == letter for spot in diagonal2]):
-                    return True
+            if all([spot == letter for spot in diagonal2]):
+                return True
 
         #if all these fail return false
             return False
 
-    def play(game, x_player, o_player, print_game = True):
-        if print_game:
-            game.print_board_nums()
-        letter = 'X'
+def play(game, x_player, o_player, print_game = True):
+    if print_game:
+        game.print_board_nums()
 
-        while game.empty_squares():
-            if letter == 'O':
-                square = o_player.get_move(game)
-            else:
-                square = o_player.get_move(game)
+    letter = 'X'
+    while game.empty_squares():
+        if letter == 'O':
+            square = o_player.get_move(game)
+        else:
+            square = x_player.get_move(game)
 
-            if game.make_move(square,letter):
-                if print_game:
-                    print(letter + f' makes a move to square {square}')
-                    game.print_board()
-                    print('')
+        if game.make_move(square, letter):
+
+            if print_game:
+                print(letter + f' makes a move to square {square}')
+                game.print_board()
+                print('')
 
             if game.current_winner:
                 if print_game:
                     print(letter+ ' wins!')
                 return letter
-
             letter = 'O' if letter == 'X' else 'X'
                 # if letter == 'x':
                 #    letter == 'o'
                 # else:
                 #    letter == 'x'
 
-            if print_game:
-                print('It\'s a tie')
+        time.sleep(0.8)
 
-    if __name__ == '__main__':
-        x_player = HumanPlayer('X')
+        if print_game:
+            print('It\'s a tie')
+
+if __name__ == '__main__':
+    x_player = HumanPlayer('X')
+    o_player = RandomComputerPlayer('O')
+    t = TicTacToe()
+    play(t, x_player, o_player, print_game=True)
